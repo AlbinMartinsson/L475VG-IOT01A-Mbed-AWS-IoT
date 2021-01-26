@@ -9,11 +9,11 @@
         },
         "wifi-ssid": {
             "help": "WiFi SSID",
-            "value": "\"TP-Link_AF13\""
+            "value": "\"YOUR_WIFI_SSID_HERE\""
         },
         "wifi-password": {
             "help": "WiFi Password",
-            "value": "\"12341234123412\""
+            "value": "\"YOUR_WIFI_PASSWORD_HERE\""
         },
         "wifi-tx": {
             "help": "TX pin for serial connection to external device",

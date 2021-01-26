@@ -11,6 +11,7 @@
 #include "mbed-trace/mbed_trace.h"
 #include "mbed_events.h"
 #include "mbedtls/error.h"
+#include <string>  
 
 /*
     Private classes for MQTT handling
@@ -96,19 +97,25 @@ void turnOffLed(){
     }
 
 void messageArrived(MQTT::MessageData& md){
+    std::string strToFindOn = "on";
+    std::string strToFindOff = "off";
+    
     MQTT::Message &message = md.message;
     printf("Payload %.*s\n", (int)message.payloadlen, (char*)message.payload);
     
-    if (strcmp((char*)message.payload, "1") == 0) {
-            turnOnLed();
+    std::string message_string((char*)message.payload);
+        
+    if (message_string.find(strToFindOn) != -1) {
+        turnOnLed();
         }
-    if (strcmp((char*)message.payload, "0") == 0)  {
-            turnOffLed();
+        
+    if (message_string.find(strToFindOff) != -1) {
+        turnOffLed();
         }
 }
 
 void cloud_recieve(){
-    int rc = mqttClient->subscribe("stm32/sensor/action", MQTT::QOS0, messageArrived);
+    int rc = mqttClient->subscribe("stm32/action", MQTT::QOS0, messageArrived);
     if (rc != 0)
         printf("rc from MQTT subscribe is %d\n", rc);
 }
